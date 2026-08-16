@@ -7,10 +7,29 @@ import { Mail, Lock, ArrowLeft, Home, LogOut, CheckCircle2 } from 'lucide-react'
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, profile, signInWithEmail, signUpWithEmail, signOut } = useAuth();
+  const { user, profile, role: authRole, signInWithEmail, signUpWithEmail, signOut } = useAuth();
 
-  // Extract return location or default to dashboard
-  const fromLocation = (location.state as { from?: string })?.from || '/dashboard';
+  // Extract return location, ensuring we redirect to portal instead of home page '/' or '/login'
+  const rawFrom = (location.state as { from?: string })?.from;
+  const getRolePortalPath = (uRole?: UserRole | null) => {
+    switch (uRole) {
+      case 'tpo':
+        return '/tpo/drives';
+      case 'faculty':
+      case 'faculty_coordinator':
+        return '/faculty/approvals';
+      case 'admin':
+        return '/admin/audit';
+      case 'student':
+      default:
+        return '/dashboard';
+    }
+  };
+
+  const portalDestination =
+    rawFrom && rawFrom !== '/' && rawFrom !== '/login'
+      ? rawFrom
+      : getRolePortalPath(authRole);
 
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
@@ -61,7 +80,7 @@ export const LoginPage: React.FC = () => {
           setErrorMsg(error.message);
         } else {
           alert('Registration submitted! If required, your account is awaiting faculty approval.');
-          navigate(fromLocation, { replace: true });
+          navigate(portalDestination, { replace: true });
         }
       } else {
         const { error } = await signInWithEmail(email, password);
@@ -69,7 +88,7 @@ export const LoginPage: React.FC = () => {
           setErrorMsg(error.message || 'Login failed. Try again or check credentials.');
         } else {
           // Replace history entry so browser back button returns to pre-login page
-          navigate(fromLocation, { replace: true });
+          navigate(portalDestination, { replace: true });
         }
       }
     } catch (err: any) {
@@ -121,7 +140,7 @@ export const LoginPage: React.FC = () => {
             </div>
             <div className="flex gap-2 pt-1">
               <button
-                onClick={() => navigate(fromLocation, { replace: true })}
+                onClick={() => navigate(portalDestination, { replace: true })}
                 className="btn-aureate-primary flex-1 text-xs py-2 justify-center"
               >
                 Continue to Portal

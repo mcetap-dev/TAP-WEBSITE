@@ -428,10 +428,10 @@ export const LandingPage: React.FC = () => {
           <div>
             <span className="font-mono text-[11px] uppercase text-[var(--brass)] block mb-3">Portals</span>
             <ul className="space-y-2 text-[var(--ink-muted)]">
-              <li><Link to="/login" className="hover:text-[var(--ink)]">Student Login</Link></li>
-              <li><Link to="/login" className="hover:text-[var(--ink)]">Faculty Login</Link></li>
-              <li><Link to="/login" className="hover:text-[var(--ink)]">TPO Login</Link></li>
-              <li><Link to="/login" className="hover:text-[var(--ink)]">Admin Login</Link></li>
+              <li><Link to="/login" state={{ from: '/dashboard' }} className="hover:text-[var(--ink)]">Student Login</Link></li>
+              <li><Link to="/login" state={{ from: '/faculty/approvals' }} className="hover:text-[var(--ink)]">Faculty Login</Link></li>
+              <li><Link to="/login" state={{ from: '/tpo/drives' }} className="hover:text-[var(--ink)]">TPO Login</Link></li>
+              <li><Link to="/login" state={{ from: '/admin/audit' }} className="hover:text-[var(--ink)]">Admin Login</Link></li>
             </ul>
           </div>
           <div>

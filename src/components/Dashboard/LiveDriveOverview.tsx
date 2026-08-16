@@ -462,23 +462,7 @@ export const LiveDriveOverview: React.FC<{
         })}
       </div>
 
-      {/* FLOATING "CREATE NEW DRIVE" BUTTON (Screenshot 2 matching design) */}
-      {showManagementControls && (
-        <div className="fixed bottom-6 right-6 z-40">
-          <button
-            onClick={() => {
-              if (onOpenCreateWizard) onOpenCreateWizard();
-              else {
-                window.dispatchEvent(new CustomEvent('pc_open_create_drive'));
-              }
-            }}
-            className="btn-aureate-primary shadow-2xl px-5 py-3 rounded-full flex items-center gap-2 text-sm font-extrabold text-black bg-[var(--brass)] hover:scale-105 transition duration-200"
-          >
-            <Plus className="w-5 h-5 stroke-[3]" />
-            <span>Create New Drive</span>
-          </button>
-        </div>
-      )}
+
 
       {/* ────────────────────────────────────────────────────────────────────────── */}
       {/* 1. APPLICANTS BOTTOM SHEET / MODAL (Exact match to Screenshot 1) */}
