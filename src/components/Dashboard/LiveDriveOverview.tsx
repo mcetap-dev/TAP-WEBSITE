@@ -9,8 +9,7 @@ import {
   Play,
   Edit3,
   X,
-  MoreVertical,
-  Plus
+  MoreVertical
 } from 'lucide-react';
 
 export interface ManagedDrive {
@@ -32,7 +31,7 @@ export const LiveDriveOverview: React.FC<{
   isFacultyView?: boolean;
   showManagementControls?: boolean;
   onOpenCreateWizard?: () => void;
-}> = ({ isFacultyView = false, showManagementControls = true, onOpenCreateWizard }) => {
+}> = ({ isFacultyView = false, showManagementControls = true, onOpenCreateWizard: _onOpenCreateWizard }) => {
   const [drives, setDrives] = useState<ManagedDrive[]>([]);
   const [selectedQRDrive, setSelectedQRDrive] = useState<ManagedDrive | null>(null);
   const [selectedDetailDrive, setSelectedDetailDrive] = useState<ManagedDrive | null>(null);
